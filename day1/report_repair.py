@@ -9,8 +9,8 @@ def process(input_file):
 
 
 @click.command()
-@click.option("--input_file", help="Path to input file")
-def cli(input_file):
+@click.option("--input_file", help="Path to input file", required=True)
+def cli(input_file=None):
     process(input_file)
 
 
