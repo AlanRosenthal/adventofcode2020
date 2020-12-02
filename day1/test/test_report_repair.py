@@ -128,9 +128,17 @@ def test_prod_triple():
     assert result == 6
 
 
-def test_end_to_end():
+def test_end_to_end_groups_2():
     """
-    Test of process() with test input file
+    Test of process() with test input file, num_groups=2
     """
     result = process("test/test_input.txt", 2)
     assert result == 514579
+
+
+def test_end_to_end_groups_3():
+    """
+    Test of process() with test input file, num_groups=3
+    """
+    result = process("test/test_input.txt", 3)
+    assert result == 241861950
