@@ -11,6 +11,7 @@ def permutation_helper(group, data, num_groups):
     """
     if num_groups == 0:
         yield group
+        return
 
     for index, item in enumerate(data, start=1):
         new_group = list(group)
