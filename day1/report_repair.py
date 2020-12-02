@@ -1,3 +1,7 @@
+"""
+Implementation of https://adventofcode.com/2020/day/1
+"""
+
 import click
 
 
@@ -35,19 +39,27 @@ def prod(data):
 
 
 def process(input_file):
+    """
+    Read from an input file and return the answer
+    """
     with open(input_file, "r") as my_file:
         data = [int(x) for x in my_file.read().splitlines()]
 
     permutations = list(get_list_of_permutations(data))
 
     match = find_tuple_sum(permutations, 2020)
-    print(prod(match))
+
+    return prod(match)
 
 
 @click.command()
 @click.option("--input_file", help="Path to input file", required=True)
 def cli(input_file=None):
-    process(input_file)
+    """
+    CLI entry point
+    """
+    result = process(input_file)
+    print(result)
 
 
 if __name__ == "__main__":
