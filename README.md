@@ -5,8 +5,16 @@ Each challenge contains two parts.
 Each part is runnable via CLI arguments.
 Each solution is fully unit tested.
 
-## The days
+## Challenges
 
-Day 1: Report Repair
-Day 2: Password Philosophy
-Day 3: Toboggan Trajectory
+### Day 1: Report Repair
+
+Permutations!
+
+### Day 2: Password Philosophy
+
+Parse and validate!
+
+### Day 3: Toboggan Trajectory
+
+Interaction, map and reduce!
