@@ -90,9 +90,41 @@ def test_toboggan_wraparound():
     assert result == ["1", "b", "*"]
 
 
-def test_end_to_end():
+def test_end_to_end_1():
     """
-    End to end test with input file
+    End to end test with input file, take 1
+    """
+    result = process("test/test_input.txt", 1, 1)
+    assert result == 2
+
+
+def test_end_to_end_2():
+    """
+    End to end test with input file, take 2
     """
     result = process("test/test_input.txt", 3, 1)
     assert result == 7
+
+
+def test_end_to_end_3():
+    """
+    End to end test with input file, take 3
+    """
+    result = process("test/test_input.txt", 5, 1)
+    assert result == 3
+
+
+def test_end_to_end_4():
+    """
+    End to end test with input file, take 4
+    """
+    result = process("test/test_input.txt", 7, 1)
+    assert result == 4
+
+
+def test_end_to_end_5():
+    """
+    End to end test with input file, take 5
+    """
+    result = process("test/test_input.txt", 1, 2)
+    assert result == 2
