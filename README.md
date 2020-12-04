@@ -17,4 +17,4 @@ Parse and validate!
 
 ### Day 3: Toboggan Trajectory
 
-Interaction, map and reduce!
+Iteration, map and reduce!
