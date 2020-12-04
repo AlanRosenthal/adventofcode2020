@@ -94,5 +94,5 @@ def test_end_to_end():
     """
     End to end test with input file
     """
-    result = process("test/test_input.txt")
+    result = process("test/test_input.txt", 3, 1)
     assert result == 7

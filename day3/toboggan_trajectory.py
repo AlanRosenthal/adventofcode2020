@@ -34,14 +34,14 @@ def is_tree(item):
     return item == "#"
 
 
-def process(input_file):
+def process(input_file, right, down):
     """
     Process input file and returns result
     """
     with open(input_file, "r") as my_file:
         my_map = my_file.read().splitlines()
 
-    encountered = toboggan(my_map, (0, 0), (3, 1))
+    encountered = toboggan(my_map, (0, 0), (right, down))
     trees = [is_tree(x) for x in list(encountered)]
 
     return sum(trees)
@@ -49,11 +49,23 @@ def process(input_file):
 
 @click.command()
 @click.option("--input_file", help="Path to input file", required=True)
-def cli(input_file=None):
+@click.option(
+    "--right",
+    help="Number of positions to move on the X axis, to the right",
+    required=True,
+    type=int,
+)
+@click.option(
+    "--down",
+    help="Number of positions to move on the Y axis, downward",
+    required=True,
+    type=int,
+)
+def cli(input_file=None, right=None, down=None):
     """
     CLI entry point
     """
-    result = process(input_file)
+    result = process(input_file, right, down)
     print(result)
 
 
