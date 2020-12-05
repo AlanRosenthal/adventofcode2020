@@ -135,8 +135,11 @@ def validate_passport_strict(passport):
     """
     Validate whether or not a passport is valid, using the strict scheme
     """
+    # Call validate_passport_weak() to verify all keys exist
+    if not validate_passport_weak(passport):
+        return False
+
     conditions = [
-        validate_passport_weak(passport),
         validate_birth_year(passport["byr"]),
         validate_issue_year(passport["iyr"]),
         validate_expiration_year(passport["eyr"]),
@@ -145,7 +148,6 @@ def validate_passport_strict(passport):
         validate_eye_color(passport["ecl"]),
         validate_passport_id(passport["pid"]),
     ]
-
     return all(conditions)
 
 
