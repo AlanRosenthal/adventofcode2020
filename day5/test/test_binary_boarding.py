@@ -4,6 +4,7 @@ Test of binary_boarding.py
 
 from day5.binary_boarding import parse_seat
 from day5.binary_boarding import find_max_seat_id
+from day5.binary_boarding import find_missing_seat_id
 from day5.binary_boarding import process_max_seat_id
 
 
@@ -40,7 +41,36 @@ def test_find_max_seat_id():
     assert find_max_seat_id(data) == 101
 
 
-def test_end_to_end():
+def test_find_missing_seat_id_pass():
+    """
+    Test of find_missing_seat_id() where there's a result
+    """
+    data = [
+        {"seat_id": 80},
+        {"seat_id": 81},
+        {"seat_id": 82},
+        {"seat_id": 84},
+        {"seat_id": 85},
+        {"seat_id": 86},
+    ]
+    assert find_missing_seat_id(data) == 83
+
+
+def test_find_missing_seat_id_fail():
+    """
+    Test of find_missing_seat_id() where there's not result
+    """
+    data = [
+        {"seat_id": 80},
+        {"seat_id": 81},
+        {"seat_id": 82},
+        {"seat_id": 85},
+        {"seat_id": 86},
+    ]
+    assert not find_missing_seat_id(data)
+
+
+def test_end_to_end_max_seat_id():
     """
     End to end test with the test input
     """

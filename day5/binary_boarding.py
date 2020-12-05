@@ -31,12 +31,38 @@ def find_max_seat_id(seats):
     return max([x["seat_id"] for x in seats])
 
 
+def find_missing_seat_id(seats):
+    """
+    Return the missing seat, from a list of seats
+    Note: Missing seats requires a seat_id with +1 and -1 to exist
+    """
+    seat_ids = [x["seat_id"] for x in seats]
+    seat_ids.sort()
+
+    all_seat_ids = range(min(seat_ids), max(seat_ids) + 1)
+
+    diff = set(all_seat_ids) - set(seat_ids)
+
+    for seat_id in diff:
+        if seat_id + 1 in seat_ids and seat_id - 1 in seat_ids:
+            return seat_id
+    return None
+
+
 def process_max_seat_id(input_file):
     """
     Process the input file, and return the max seat id
     """
     seats = parse_file(input_file)
     return find_max_seat_id(seats)
+
+
+def process_find_missing_seat_id(input_file):
+    """
+    Process the input file, and return the missing seat_id
+    """
+    seats = parse_file(input_file)
+    return find_missing_seat_id(seats)
 
 
 @click.group()
@@ -50,9 +76,19 @@ def cli():
 @click.option("--input_file", help="Path to input file", required=True)
 def max_seat_id(input_file):
     """
-    Sub command, max_seat_id will return the max seat_id from a given input file
+    Sub command, max-seat-id will return the max seat_id from a given input file
     """
     result = process_max_seat_id(input_file)
+    print(result)
+
+
+@cli.command()
+@click.option("--input_file", help="Path to input file", required=True)
+def missing_seat_id(input_file):
+    """
+    Sub command, missing-seat-id will return the max seat_id from a given input file
+    """
+    result = process_find_missing_seat_id(input_file)
     print(result)
 
 
