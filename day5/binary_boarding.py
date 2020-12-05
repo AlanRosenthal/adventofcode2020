@@ -14,25 +14,43 @@ def parse_seat(seat):
     return {"row": row, "column": column, "seat_id": row * 8 + column}
 
 
-def process(input_file):
+def parse_file(input_file):
     """
-    Process input file and returns result
+    Parse the file and return a list of dictionaries
     """
     with open(input_file, "r") as my_file:
         data = my_file.read().splitlines()
 
-    seats = [parse_seat(x) for x in data]
+    return [parse_seat(x) for x in data]
 
+
+def find_max_seat_id(seats):
+    """
+    Return the max seat_id from a list of seats
+    """
     return max([x["seat_id"] for x in seats])
 
 
-@click.command()
-@click.option("--input_file", help="Path to input file", required=True)
-def cli(input_file=None):
+def process_max_seat_id(input_file):
+    """
+    Process the input file, and return the max seat id
+    """
+    seats = parse_file(input_file)
+    return find_max_seat_id(seats)
+
+
+@click.group()
+def cli():
     """
     CLI entry point
     """
-    result = process(input_file)
+    pass
+
+
+@cli.command()
+@click.option("--input_file", help="Path to input file", required=True)
+def max_seat_id(input_file):
+    result = process_max_seat_id(input_file)
     print(result)
 
 
