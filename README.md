@@ -18,3 +18,7 @@ Parse and validate!
 ### Day 3: Toboggan Trajectory
 
 Iteration, map and reduce!
+
+### Day 4: Passport Processing
+
+Parsing and string validation!

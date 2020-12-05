@@ -53,11 +53,7 @@ def validate_birth_year(byr):
     """
     if len(byr) != 4:
         return False
-    if int(byr) < 1920:
-        return False
-    if int(byr) > 2002:
-        return False
-    return True
+    return 1920 <= int(byr) <= 2002
 
 
 def validate_issue_year(iyr):
@@ -66,11 +62,7 @@ def validate_issue_year(iyr):
     """
     if len(iyr) != 4:
         return False
-    if int(iyr) < 2010:
-        return False
-    if int(iyr) > 2020:
-        return False
-    return True
+    return 2010 <= int(iyr) <= 2020
 
 
 def validate_expiration_year(eyr):
@@ -79,11 +71,7 @@ def validate_expiration_year(eyr):
     """
     if len(eyr) != 4:
         return False
-    if int(eyr) < 2020:
-        return False
-    if int(eyr) > 2030:
-        return False
-    return True
+    return 2020 <= int(eyr) <= 2030
 
 
 def validate_height(hgt):
@@ -97,12 +85,10 @@ def validate_height(hgt):
         return False
 
     if match[2] == "cm":
-        hgt_cm = int(match[1])
-        return 150 <= hgt_cm <= 193
+        return 150 <= int(match[1]) <= 193
 
     if match[2] == "in":
-        hgt_in = int(match[1])
-        return 59 <= hgt_in <= 76
+        return 59 <= int(match[1]) <= 76
 
     return False
 
@@ -127,7 +113,7 @@ def validate_passport_id(pid):
     """
     Validate PassportID - a nine-digit number, including leading zeroes.
     """
-    match = re.search("[0-9]{9}", pid)
+    match = re.search("^[0-9]{9}$", pid)
     return bool(match)
 
 

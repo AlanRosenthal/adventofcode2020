@@ -122,72 +122,63 @@ def test_validate_birth_year_basic_pass():
     """
     Basic test of validate_birth_year() where the result is True
     """
-    result = validate_birth_year("2002")
-    assert result
+    assert validate_birth_year("2002")
 
 
 def test_validate_birth_year_basic_fail1():
     """
     Basic test of validate_birth_year() where the result is False, take 1
     """
-    result = validate_birth_year("2003")
-    assert not result
+    assert not validate_birth_year("2003")
 
 
 def test_validate_birth_year_basic_fail2():
     """
     Basic test of validate_birth_year() where the result is False, take 2
     """
-    result = validate_birth_year("200")
-    assert not result
+    assert not validate_birth_year("200")
 
 
 def test_validate_birth_year_basic_fail3():
     """
     Basic test of validate_birth_year() where the result is False, take 3
     """
-    result = validate_birth_year("1919")
-    assert not result
+    assert not validate_birth_year("1919")
 
 
 def test_validate_issue_year_pass():
     """
     Basic test of validate_issue_year() where the result is True
     """
-    result = validate_issue_year("2010")
-    assert result
+    assert validate_issue_year("2010")
 
 
 def test_validate_issue_year_basic_fail1():
     """
     Basic test of validate_issue_year() where the result is False, take 1
     """
-    result = validate_issue_year("2003")
-    assert not result
+    assert not validate_issue_year("2003")
 
 
 def test_validate_issue_year_basic_fail2():
     """
     Basic test of validate_issue_year() where the result is False, take 2
     """
-    result = validate_issue_year("200")
-    assert not result
+    assert not validate_issue_year("200")
 
 
 def test_validate_issue_year_basic_fail3():
     """
     Basic test of validate_issue_year() where the result is False, take 3
     """
-    result = validate_issue_year("2022")
-    assert not result
+    assert not validate_issue_year("2022")
 
 
 def test_validate_expiration_year_pass():
     """
     Basic test of validate_expiration_year() where the result is True
     """
-    result = validate_expiration_year("2022")
-    assert result
+    assert validate_expiration_year("2022")
 
 
 def test_validate_expiration_year_basic_fail1():
@@ -383,7 +374,7 @@ def test_validate_passport_id_false():
     """
     Basic test of validate_passport_id(), where the result is False
     """
-    assert validate_passport_id("0123456789")
+    assert not validate_passport_id("0123456789")
 
 
 def test_validate_passport_strict_invalid1():
