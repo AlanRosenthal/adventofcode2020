@@ -161,7 +161,10 @@ def process(input_file, strict_validation):
 @click.command()
 @click.option("--input_file", help="Path to input file", required=True)
 @click.option(
-    "--strict_validation", help="Path to input file", required=True, type=bool
+    "--strict_validation",
+    help="Whether or not to use strict validation",
+    required=True,
+    type=bool,
 )
 def cli(input_file=None, strict_validation=None):
     """
