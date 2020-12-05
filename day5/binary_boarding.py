@@ -44,12 +44,14 @@ def cli():
     """
     CLI entry point
     """
-    pass
 
 
 @cli.command()
 @click.option("--input_file", help="Path to input file", required=True)
 def max_seat_id(input_file):
+    """
+    Sub command, max_seat_id will return the max seat_id from a given input file
+    """
     result = process_max_seat_id(input_file)
     print(result)
 
