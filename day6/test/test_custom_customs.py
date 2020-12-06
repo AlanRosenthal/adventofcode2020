@@ -26,10 +26,13 @@ def test_group_answers_anyone(responses, result):
 @pytest.mark.parametrize(
     "responses, result",
     [
-        (["a", "ab", "abc"], ["a"]),
-        (["a"], ["a"]),
-        (["a", "b", "c"], []),
         (["abc"], ["a", "b", "c"]),
+        (["a", "b", "c"], []),
+        (["ab", "ac"], ["a"]),
+        (["a", "a", "a", "a"], ["a"]),
+        (["b"], ["b"]),
+        (["a", "ab", "abc"], ["a"]),
+        (["a", "ab", "abc", ""], []),
     ],
 )
 def test_group_answers_everyone(responses, result):
@@ -39,8 +42,15 @@ def test_group_answers_everyone(responses, result):
     assert group_answers_everyone(responses) == result
 
 
-def test_end_to_end():
+@pytest.mark.parametrize(
+    "question, result",
+    [
+        ("anyone", 11),
+        ("everyone", 6)
+    ],
+)
+def test_end_to_end(question, result):
     """
     End to end test of test input file
     """
-    assert process("test/test_input.txt", "anyone") == 11
+    assert process("test/test_input.txt", question) == result

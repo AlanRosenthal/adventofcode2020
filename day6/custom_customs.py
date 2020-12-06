@@ -30,7 +30,7 @@ def process(input_file, question):
     Process input file and returns result
     """
     with open(input_file, "r") as my_file:
-        data = [x.split("\n") for x in my_file.read().split("\n\n")]
+        data = [x.strip().split("\n") for x in my_file.read().split("\n\n")]
 
     if question == "anyone":
         my_filter = group_answers_anyone
