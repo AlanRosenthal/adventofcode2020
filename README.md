@@ -27,3 +27,7 @@ Parsing and string validation!
 ### Day 5: Binary Boarding
 
 Parsing and sets!
+
+### Day 6: Custom Customs
+
+Sets!

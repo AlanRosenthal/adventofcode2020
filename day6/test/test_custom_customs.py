@@ -44,10 +44,7 @@ def test_group_answers_everyone(responses, result):
 
 @pytest.mark.parametrize(
     "question, result",
-    [
-        ("anyone", 11),
-        ("everyone", 6)
-    ],
+    [("anyone", 11), ("everyone", 6)],
 )
 def test_end_to_end(question, result):
     """
