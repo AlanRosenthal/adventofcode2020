@@ -31,3 +31,7 @@ Parsing and sets!
 ### Day 6: Custom Customs
 
 Sets!
+
+### Day 7: Handy Haversacks
+
+Graphs!
