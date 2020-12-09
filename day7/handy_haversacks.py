@@ -31,9 +31,9 @@ def colors_in_list(color_list):
     return [x["color"] for x in color_list]
 
 
-def build_dag(starting_color, rules):
+def build_graph_up(starting_color, rules):
     """
-    Return a DAQ based on a starting color and a list of rules
+    Return a graph based on a starting color and a list of rules, built upwards
     """
     # colors that contain the starting_color
     contains_starting_color = [
@@ -41,20 +41,46 @@ def build_dag(starting_color, rules):
     ]
     return {
         "color": starting_color,
-        "inside": [build_dag(x, rules) for x in contains_starting_color],
+        "inside": [build_graph_up(x, rules) for x in contains_starting_color],
     }
 
 
-def list_nodes(dag):
+def build_graph_down(starting_color, rules):
     """
-    Return a genator of nodes  in a DAG
+    Return a graph based on a starting color and a list of rules, built downwards
     """
-    for node in dag["inside"]:
+    starting_node = [x for x in rules if x["color"] == starting_color][0]
+
+    for node in starting_node["inside"]:
+        yield {
+            "color": node["color"],
+            "count": node["count"],
+            "inside": list(build_graph_down(node["color"], rules)),
+        }
+
+
+def list_nodes(graph):
+    """
+    Return a genator of nodes in a graph
+    """
+    for node in graph["inside"]:
         yield node["color"]
         yield from list_nodes(node)
 
 
-def process(input_file):
+def calculate_total_bags(graph):
+    """
+    Given a graph, return the total bags required
+    """
+    value = 0
+    for node in graph:
+        value += int(node["count"]) + int(node["count"]) * calculate_total_bags(
+            node["inside"]
+        )
+    return value
+
+
+def process(input_file, part):
     """
     Process input file and returns result
     """
@@ -62,17 +88,24 @@ def process(input_file):
         data = my_file.read().splitlines()
 
     rules = [parse(x) for x in data]
-    dag = build_dag("shiny gold", rules)
-    return len(set(list_nodes(dag)))
+    if part == 1:
+        graph = build_graph_up("shiny gold", rules)
+        return len(set(list_nodes(graph)))
+    if part == 2:
+        graph = list(build_graph_down("shiny gold", rules))
+        return calculate_total_bags(graph)
+
+    return 0
 
 
 @click.command()
 @click.option("--input_file", help="Path to input file", required=True)
-def cli(input_file=None):
+@click.option("--part", help="Which problem 1 or 2", required=True, type=int)
+def cli(input_file=None, part=None):
     """
     CLI entry point
     """
-    result = process(input_file)
+    result = process(input_file, part)
     print(result)
 
 

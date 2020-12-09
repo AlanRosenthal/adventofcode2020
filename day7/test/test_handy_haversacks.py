@@ -4,9 +4,11 @@ Test of handy_haversacks.py
 
 import pytest
 from day7.handy_haversacks import parse
-from day7.handy_haversacks import build_dag
+from day7.handy_haversacks import build_graph_up
+from day7.handy_haversacks import build_graph_down
 from day7.handy_haversacks import list_nodes
 from day7.handy_haversacks import process
+from day7.handy_haversacks import calculate_total_bags
 
 
 @pytest.mark.parametrize(
@@ -180,12 +182,121 @@ def test_parse(rules_str, output):
         ),
     ],
 )
-def test_build_dag(starting_color, rules, output):
+def test_build_graph_up(starting_color, rules, output):
     """
-    Test of build_dag()
+    Test of build_graph_up()
     """
 
-    assert build_dag(starting_color, rules) == output
+    assert build_graph_up(starting_color, rules) == output
+
+
+@pytest.mark.parametrize(
+    ("starting_color", "rules", "output"),
+    [
+        (
+            "yellow",
+            [
+                {
+                    "color": "yellow",
+                    "inside": [],
+                }
+            ],
+            [],
+        ),
+        (
+            "yellow",
+            [
+                {
+                    "color": "yellow",
+                    "inside": [
+                        {"count": "10", "color": "white"},
+                        {"count": "5", "color": "red"},
+                    ],
+                },
+                {
+                    "color": "white",
+                    "inside": [],
+                },
+                {
+                    "color": "red",
+                    "inside": [],
+                },
+            ],
+            [
+                {"color": "white", "count": "10", "inside": []},
+                {"color": "red", "count": "5", "inside": []},
+            ],
+        ),
+        (
+            "yellow",
+            [
+                {
+                    "color": "yellow",
+                    "inside": [
+                        {"count": "10", "color": "white"},
+                        {"count": "5", "color": "red"},
+                    ],
+                },
+                {
+                    "color": "white",
+                    "inside": [],
+                },
+                {
+                    "color": "blue",
+                    "inside": [],
+                },
+                {
+                    "color": "red",
+                    "inside": [{"count": "100", "color": "blue"}],
+                },
+            ],
+            [
+                {"color": "white", "count": "10", "inside": []},
+                {
+                    "color": "red",
+                    "count": "5",
+                    "inside": [{"color": "blue", "count": "100", "inside": []}],
+                },
+            ],
+        ),
+    ],
+)
+def test_build_graph_down(starting_color, rules, output):
+    """
+    Test of build_graph_down()
+    """
+
+    assert list(build_graph_down(starting_color, rules)) == output
+
+
+@pytest.mark.parametrize(
+    ("graph", "result"),
+    [
+        (
+            [
+                {"color": "white", "count": "10", "inside": []},
+                {"color": "red", "count": "5", "inside": []},
+            ],
+            10 + 5,
+        ),
+        (
+            [
+                {"color": "white", "count": "10", "inside": []},
+                {
+                    "color": "red",
+                    "count": "5",
+                    "inside": [{"color": "blue", "count": "100", "inside": []}],
+                },
+            ],
+            10 + 5 + 5 * 100,
+        ),
+    ],
+)
+def test_calculate_total_bags(graph, result):
+    """
+    Test of calculate_total_bags()
+    """
+    assert calculate_total_bags(graph) == result
 
 
 @pytest.mark.parametrize(
@@ -248,9 +359,10 @@ def test_list_nodes(dag, output):
     assert list(list_nodes(dag)) == output
 
 
-def test_end_to_end():
+@pytest.mark.parametrize(("part", "output"), [(1, 4), (2, 32)])
+def test_end_to_end(part, output):
     """
     End to end test with test input file
     """
 
-    assert process("test/test_input.txt") == 4
+    assert process("test/test_input.txt", part) == output
