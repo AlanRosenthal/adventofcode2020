@@ -18,18 +18,26 @@ def parse(rules_str):
     else:
         bags = []
         for bag in inside_bags.split(","):
-            match = re.search("[0-9]* (.*) bag(?:s?)", bag.strip())
-            bags.append(match[1])
+            match = re.search("([0-9]*) (.*) bag(?:s?)", bag.strip())
+            bags.append({"count": match[1], "color": match[2]})
 
     return {"color": color, "inside": bags}
+
+
+def colors_in_list(color_list):
+    """
+    Return a list of colors
+    """
+    return [x["color"] for x in color_list]
 
 
 def build_dag(starting_color, rules):
     """
     Return a DAQ based on a starting color and a list of rules
     """
+    # colors that contain the starting_color
     contains_starting_color = [
-        x["color"] for x in list(filter(lambda x: starting_color in x["inside"], rules))
+        x["color"] for x in rules if starting_color in colors_in_list(x["inside"])
     ]
     return {
         "color": starting_color,
