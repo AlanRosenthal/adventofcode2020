@@ -35,3 +35,7 @@ Sets!
 ### Day 7: Handy Haversacks
 
 Graphs!
+
+### Day 7: Handy Haversacks
+
+Iteration and Cycles!
