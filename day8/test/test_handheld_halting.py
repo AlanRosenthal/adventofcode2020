@@ -4,7 +4,7 @@ Test of handheld_halting.py
 
 import pytest
 from day8.handheld_halting import parse
-from day8.handheld_halting import evaluate_break_on_cycle
+from day8.handheld_halting import execute
 from day8.handheld_halting import process
 
 
@@ -33,7 +33,7 @@ def test_parse(instruction_str, output):
                 {"argument": 0, "operation": "nop"},
                 {"argument": -3, "operation": "jmp"},
             ],
-            0,
+            (0, "cycle"),
         ),
         (
             [
@@ -42,7 +42,7 @@ def test_parse(instruction_str, output):
                 {"argument": 3, "operation": "acc"},
                 {"argument": -3, "operation": "jmp"},
             ],
-            6,
+            (6, "cycle"),
         ),
         (
             [
@@ -54,19 +54,31 @@ def test_parse(instruction_str, output):
                 {"argument": 1, "operation": "acc"},
                 {"argument": -2, "operation": "jmp"},
             ],
-            8,
+            (8, "cycle"),
+        ),
+        (
+            [
+                {"argument": 1, "operation": "acc"},
+                {"argument": 2, "operation": "acc"},
+                {"argument": 3, "operation": "acc"},
+                {"argument": 2, "operation": "jmp"},
+                {"argument": 1, "operation": "acc"},
+                {"argument": 1, "operation": "acc"},
+            ],
+            (7, "termination"),
         ),
     ],
 )
-def test_evaluate_break_on_cycle(instructions, output):
+def test_execute(instructions, output):
     """
-    Test of evaluate_break_on_cycle()
+    Test of execute()
     """
-    assert evaluate_break_on_cycle(instructions) == output
+    assert execute(instructions) == output
 
 
-def test_process():
+@pytest.mark.parametrize(("part", "output"), [(1, 5), (2, 8)])
+def test_process(part, output):
     """
     Test of process() with test input file
     """
-    assert process("test/test_input.txt") == 5
+    assert process("test/test_input.txt", part) == output
