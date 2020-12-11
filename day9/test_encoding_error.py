@@ -6,6 +6,7 @@ import pytest
 
 from encoding_error import get_previous_n_numbers
 from encoding_error import is_value_in_list_sum
+from encoding_error import process
 
 
 @pytest.mark.parametrize(
@@ -37,3 +38,11 @@ def test_is_value_in_list_sum(data, value, output):
     Test of is_value_in_list_sum()
     """
     assert is_value_in_list_sum(data, value) == output
+
+
+@pytest.mark.parametrize(("previous_n, output"), [(5, 127)])
+def test_process(previous_n, output):
+    """
+    Test of process()
+    """
+    assert process("test_input.txt", previous_n) == output
