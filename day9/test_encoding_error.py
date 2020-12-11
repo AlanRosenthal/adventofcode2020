@@ -6,6 +6,7 @@ import pytest
 
 from encoding_error import get_previous_n_numbers
 from encoding_error import is_value_in_list_sum
+from encoding_error import find_contiguous_list_sum
 from encoding_error import process
 
 
@@ -40,9 +41,24 @@ def test_is_value_in_list_sum(data, value, output):
     assert is_value_in_list_sum(data, value) == output
 
 
-@pytest.mark.parametrize(("previous_n, output"), [(5, 127)])
-def test_process(previous_n, output):
+@pytest.mark.parametrize(("previous_n, part, output"), [(5, 1, 127), (5, 2, 62)])
+def test_process(previous_n, part, output):
     """
     Test of process()
     """
-    assert process("test_input.txt", previous_n) == output
+    assert process("test_input.txt", previous_n, part) == output
+
+
+@pytest.mark.parametrize(
+    "data, value, output",
+    [
+        ([1, 2, 3, 4], 6, (0, 2)),
+        ([1, 2, 3, 4], 7, (2, 3)),
+        ([1, 2, 3, 4], 10, (0, 3)),
+    ],
+)
+def test_find_contiguous_list_sum(data, value, output):
+    """
+    Test of find_contiguous_list_sum()
+    """
+    assert find_contiguous_list_sum(data, value) == output
