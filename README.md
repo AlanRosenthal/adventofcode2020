@@ -36,6 +36,10 @@ Sets!
 
 Graphs!
 
-### Day 7: Handy Haversacks
+### Day 8: Handheld Halting
 
 Iteration and Cycles!
+
+### Day 9: Encoding Error
+
+Combinations!
