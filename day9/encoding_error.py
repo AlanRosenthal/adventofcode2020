@@ -29,9 +29,9 @@ def process(input_file, previous_n):
     with open(input_file, "r") as my_file:
         data = [int(x) for x in my_file.read().strip().splitlines()]
 
-    for index in range(5, len(data)):
+    for index in range(previous_n, len(data)):
         previous_list = get_previous_n_numbers(data, previous_n, index)
-        if is_value_in_list_sum(previous_list, data[index]):
+        if not is_value_in_list_sum(previous_list, data[index]):
             return data[index]
 
     return 0
